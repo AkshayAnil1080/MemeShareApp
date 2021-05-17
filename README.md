@@ -42,7 +42,7 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.5" /> - using percent =0.5 to make the vertical line exact in the middle of screen
 
-<img src="https://github.com/AkshayAnil1080/MemeShareApp/blob/main/images/ms1.jpg" width==350 height=200/>
+<img src="https://github.com/AkshayAnil1080/MemeShareApp/blob/main/images/ms1.jpg" width=350 height=200/>
 	Also, Extract String resorce for android:text="Share" and android:text="Next"
 
 ### 2. Volley 
@@ -63,7 +63,7 @@
 
 	2. Create JsonObjectRequest
 	
-#### 2a.CREATING AND CHECKING StringRequest
+#### 2a. CREATING AND CHECKING StringRequest
  	private fun loadMeme(){  // copy the code for android documentation
         	// Instantiate the RequestQueue.
        		val queue = Volley.newRequestQueue(this)
@@ -79,7 +79,9 @@
               		Log.d("error", it.localizedMessage)
             	})
 
-success image
+	success image
+
+<img src="https://github.com/AkshayAnil1080/MemeShareApp/blob/main/images/3StringRequest.jpeg" width=350 height=200/>
 
 	Now, lets make  JSON object request
 
@@ -100,7 +102,6 @@ success image
 
             	})
 
-	success image
 	
 ### 3. Glide - for images - to pass the images getting from api to image view.
 
@@ -122,6 +123,5 @@ success image
 	 fun nextMeme(view: View) {
         	loadMeme()
    	 }
-
-
+<img src="https://github.com/AkshayAnil1080/MemeShareApp/blob/main/images/4gridle.jpeg" width=200 height=600/>
 
