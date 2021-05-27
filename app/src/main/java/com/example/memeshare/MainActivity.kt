@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
     private fun loadMeme(){  // copy the code for android documentation
        progressBar.visibility =  View.VISIBLE // adding a progress bar
         // Instantiate the RequestQueue.
-        val queue = Volley.newRequestQueue(this)
+//        val queue = Volley.newRequestQueue(this)   not req after MySingleton
         val url = "https://meme-api.herokuapp.com/gimme"
 
 // Request a string response from the provided URL.
@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
             Response.Listener { response ->
 
                 // we need to url string of json file
-                val curr_url = response.getString("url")
+               curr_url = response.getString("url")
                 Glide.with(this).load(curr_url).listener(object: RequestListener<Drawable>{
 
                     override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
@@ -65,7 +65,8 @@ class MainActivity : AppCompatActivity() {
             })
 
 // Add the request to the RequestQueue.
-        queue.add(jsonObjectRequest)
+//        queue.add(jsonObjectRequest) now have to use like
+        MySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest)
     }
     fun shareMeme(view: View) {
         val intent = Intent(Intent.ACTION_SEND)

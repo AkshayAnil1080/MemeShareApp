@@ -15,7 +15,8 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/shareButton"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:srcCompat="@tools:sample/avatars"/>
+
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -24,30 +25,31 @@
         app:layout_constraintTop_toTopOf="@+id/imageView3"
         app:layout_constraintLeft_toLeftOf="@+id/imageView3"
         app:layout_constraintRight_toRightOf="@+id/imageView3"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView3" />
 
-        />
     <Button
         android:id="@+id/shareButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:onClick="shareMeme"
         android:padding="24dp"
         android:text="@string/share"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/guideline2"
-        android:onClick="shareMeme"/>
+        android:backgroundTint="@color/shareButtonColor"/>
 
     <Button
         android:id="@+id/nextButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:onClick="nextMeme"
         android:padding="24dp"
         android:text="@string/next"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@id/guideline2"
         app:layout_constraintRight_toRightOf="parent"
-        android:onClick="nextMeme"/>
+        android:backgroundTint="@color/nextButtonColor"/>
 
 
     <androidx.constraintlayout.widget.Guideline
