@@ -1,4 +1,8 @@
-###1. File - > New Project- >Empty Activity - >MemeShare
+# MemeShare - Android App
+* With this fun app you can access the funniest memes and share them with your friends through your favorite apps. It is free and open source. It works on Android version 6 and above
+* Download it now
+
+### 1. File - > New Project- >Empty Activity - >MemeShare
 	In main.actovity.xml -> design - > add an avatar via Image View
 	Go to Split - Edit the code. Add Buttons for share and next , Add Vertical Guideline to indicate the right parent of SHARE and left parent of NEXT
 
@@ -125,3 +129,70 @@
    	 }
 <img src="https://github.com/AkshayAnil1080/MemeShareApp/blob/main/images/4gridle.jpeg" width=200 height=600/>
 
+### 5. Setting up a Pogress bar for next button
+	GO to actiivty_main.xml - setup a loader in the middle of the page.
+ 	<ProgressBar
+        	android:id="@+id/progressBar"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	app:layout_constraintTop_toTopOf="@+id/imageView3"
+        	app:layout_constraintLeft_toLeftOf="@+id/imageView3"
+        	app:layout_constraintRight_toRightOf="@+id/imageView3"
+        	app:layout_constraintBottom_toBottomOf="@+id/imageView3" />
+
+	It should be visible when loadMeme function works
+	GLide is taking all time to fetch the image-  if img size 5kb -download will be faster
+	else Progress bar will show its loading. We need to add a REQUEST LISTENER Object in it.
+	
+	What is qREQUEST LISTENER Object ? 
+	This is an interface which implements two methods 
+		onLoadFailed  
+		onResourceReady 
+	Go to MainActivity.kt and
+	 Glide.with(this).load(curr_url).listener(object: RequestListener<Drawable>{
+
+                    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
+                        progressBar.visibility = View.GONE  // if failed stop the progress bar and return
+                        return false
+
+                    }
+
+                    override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                        progressBar.visibility = View.GONE // if success then also stop and return
+                        return false
+
+                    }
+
+	Done.
+
+### 6. Share Button
+
+	1. need to fetch the url fron load meme 
+	2. Idea of intent(for interprocess comm) to go from one screen to another -
+		Implicit Intent
+		Explicit INtent
+	3. Have to create a var(mutable in Kotlin) at top as curr_url before load_meme and change the name of response.getString of json ObjectRequest as curr_val
+	4. Make an intent - Specity its type - Pass the text via intent
+	5. Make a chooser , 
+	6. Start Activity
+
+	 var curr_url: String? = null
+
+  	fun shareMeme(view: View) { 
+        	val intent = Intent(Intent.ACTION_SEND)  - specifying the action
+        	intent.type ="text/plain"		 - specify the type of file to be sent
+        	intent.putExtra(Intent.EXTRA_TEXT , "hey, check this cool and funny meme I got from Reddit $url")  	- 
+        	
+        	val chooser = Intent.createChooser(intent, "Sharet this meme using.....")   -  share through multiuple apps.(FB, INsta, WhatsApp,...)
+		startActivity(chooser)							    - start the activity
+   	 }	
+
+	Done.
+
+
+### 7. MySingleton 
+	reference: //refernce : https://developer.android.com/training/volley/requestqueue - source code
+	1. a class which will have only one instance
+	2. It is recommended to setup a single Voley(requirement of network) instance for every activity.  A single insance throughout the app life cycle 
+	
+ 	Done.
