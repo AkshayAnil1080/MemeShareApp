@@ -1,6 +1,10 @@
 # MemeShare - Android App
 * With this fun app you can access the funniest memes and share them with your friends through your favorite apps. It is free and open source. It works on Android version 6 and above
-* Download it now
+<img src="https://github.com/AkshayAnil1080/MemeShareApp/blob/main/images/app.jpg"/>
+ ## <i><b> Download it now </b></i> <br>
+<a href="https://drive.google.com/drive/u/1/folders/1CYPSgEAR4z3Lk0Zq5HJP5Wpm_pFWCwkq">
+  <img src="https://github.com/AkshayAnil1080/MemeShareApp/blob/main/images/download.png"" width=40 height=40/>
+</a>
 
 ### 1. File - > New Project- >Empty Activity - >MemeShare
 	In main.actovity.xml -> design - > add an avatar via Image View
