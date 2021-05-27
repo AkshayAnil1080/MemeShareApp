@@ -1,18 +1,28 @@
 package com.example.memeshare
 
+import android.content.Intent
+import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ProgressBar
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+
+    var curr_url: String? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -22,6 +32,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadMeme(){  // copy the code for android documentation
+       progressBar.visibility =  View.VISIBLE // adding a progress bar
         // Instantiate the RequestQueue.
         val queue = Volley.newRequestQueue(this)
         val url = "https://meme-api.herokuapp.com/gimme"
@@ -32,8 +43,22 @@ class MainActivity : AppCompatActivity() {
             Response.Listener { response ->
 
                 // we need to url string of json file
-                val url = response.getString("url")
-                Glide.with(this).load(url).into(imageView3)
+                val curr_url = response.getString("url")
+                Glide.with(this).load(curr_url).listener(object: RequestListener<Drawable>{
+
+                    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
+                        progressBar.visibility = View.GONE  // if failed stop the progress bar and return
+                        return false
+
+                    }
+
+                    override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                        progressBar.visibility = View.GONE // if success then also stop and return
+                        return false
+
+                    }
+
+                }).into(imageView3)
             },
             Response.ErrorListener {
 
@@ -42,7 +67,14 @@ class MainActivity : AppCompatActivity() {
 // Add the request to the RequestQueue.
         queue.add(jsonObjectRequest)
     }
-    fun shareMeme(view: View) {}
+    fun shareMeme(view: View) {
+        val intent = Intent(Intent.ACTION_SEND)
+        intent.type ="text/plain"
+        intent.putExtra(Intent.EXTRA_TEXT , "hey, check this cool and funny meme I got from Reddit $curr_url")
+        // chooser from gmail, or whatsapp or ...
+        val chooser = Intent.createChooser(intent, "Share this meme using.....")
+        startActivity(chooser)
+    }
     fun nextMeme(view: View) {
         loadMeme()
     }
